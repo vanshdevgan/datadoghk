@@ -7,6 +7,8 @@ const Product = require("../models/product");
 const Order = require("../models/order");
 const Cart = require("../models/cart");
 const middleware = require("../middleware");
+const winstonlogger = require("../middleware/winstonlogger")
+
 const {
   userSignUpValidationRules,
   userSignInValidationRules,
@@ -19,6 +21,10 @@ router.use(csrfProtection);
 // GET: display the signup form with csrf token
 router.get("/signup", middleware.isNotLoggedIn, (req, res) => {
   var errorMsg = req.flash("error")[0];
+  winstonlogger.log('info', 'user signing up');
+  winstonlogger.info('user signing up in metas',{color: 'blue' });
+
+
   res.render("user/signup", {
     csrfToken: req.csrfToken(),
     errorMsg,

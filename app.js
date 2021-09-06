@@ -14,9 +14,14 @@ var  MongoStore = require("connect-mongo")(session);
 const connectDB = require("./config/db");
 var StatsD = require('hot-shots');
 var dogstatsd = new StatsD();
-
+const winstonlogger = require('./middleware/winstonlogger')
 // Increment a counter.
 dogstatsd.increment('page.views')
+
+winstonlogger.log('info', 'Hello simple log!');
+
+
+
 const app = express();
 require("./config/passport");
 
